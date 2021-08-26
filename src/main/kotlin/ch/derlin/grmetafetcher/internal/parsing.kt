@@ -1,10 +1,9 @@
-package ch.derlin.grmetafetcher
+package ch.derlin.grmetafetcher.internal
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.net.HttpURLConnection
 import java.net.URL
-import java.text.Normalizer
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
@@ -12,7 +11,9 @@ import java.time.temporal.ChronoField
 import java.util.*
 
 
-object GetHtml {
+// ------- GET HTML
+
+internal object GetHtml {
     /**
      * Get the HTML content of a page, in the form of a JSoup Document
      */
@@ -49,7 +50,7 @@ internal fun getAuthorsFromString(authors: String): List<String> =
     authors.substringAfter("by ")
         .split(",")
         .mapNotNull { "([^(]+) ?(?:\\((.+)\\))?".toRegex().find(it.trim())?.groupValues?.drop(1) }
-        .filter { it.last() in listOf("", "GoodReads Author") }
+        .filter { it.last().toLowerCase() in listOf("", "goodreads author") }
         .map { it.first().trim() }
 
 internal fun getIsbnFromString(isbn: String): String? =
@@ -84,27 +85,9 @@ internal fun getPublicationDateFromString(publicationString: String): LocalDate?
     if (pubDateString == null) return null
 
     return runOrNull {
-        LocalDate.parse(pubDateString.replace("(\\d)st|nd|rd|th".toRegex(), "$1"), pubDateFormat)
+        LocalDate.parse(pubDateString.replace("(\\d)(st|nd|rd|th)".toRegex(), "$1"), pubDateFormat)
     }
 }
-
-// ------- COMPARISONS
-
-internal fun fuzzyCompare(expected: String, actual: String, strict: Boolean = false): Boolean {
-    fun String.cleaned() = toLowerCase()
-        .removeDiacritics()
-        .replace("[^a-z0-9]".toRegex(), "")
-        .replace(" +".toRegex(), " ")
-        .trim()
-
-    val cleanedActual = actual.cleaned()
-    val cleanedExpected = expected.cleaned()
-    return if (strict) cleanedActual == cleanedExpected else cleanedActual.contains(cleanedExpected)
-}
-
-internal fun String.removeDiacritics() =
-    Normalizer.normalize(this, Normalizer.Form.NFD)
-        .replace("\\p{Mn}+".toRegex(), "")
 
 // ------- OTHER
 

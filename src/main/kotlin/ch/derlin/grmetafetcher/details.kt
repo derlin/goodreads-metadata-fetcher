@@ -1,7 +1,9 @@
 package ch.derlin.grmetafetcher
 
 import org.jsoup.nodes.Document
+import java.io.Serializable
 import java.time.LocalDate
+import ch.derlin.grmetafetcher.internal.*
 
 data class GoodReadsMetadata(
     /** The URL of the book on GoodReads (could also be reconstructed from the ID) */
@@ -21,15 +23,27 @@ data class GoodReadsMetadata(
     val pages: Int?,
     /** The earliest publication date, if present */
     val pubDate: LocalDate?,
-) {
+) : Serializable {
+
     companion object {
         @Throws(GrNotFoundException::class)
-        fun lookup(title: String, author: String? = null): GoodReadsMetadata =
-            GoodReadsLookup(title, author).findBestMatch().getMetadata()
+        fun lookup(title: String, author: String? = null, includeAuthorInSearch: Boolean = author != null): GoodReadsMetadata =
+            GoodReadsLookup(title, author, includeAuthorInSearch).findBestMatch().getMetadata()
+
+        @Throws(GrParseException::class)
+        fun fromUrl(url: String): GoodReadsMetadata =
+            metaFromUrl(url)
+
+        @Throws(GrParseException::class)
+        fun fromGoodReadsId(id: String): GoodReadsMetadata =
+            metaFromUrl(GoodReadsUrl.forBookId(id))
     }
 }
 
-fun GoodReadsSearchResult.getMetadata(): GoodReadsMetadata {
+fun GoodReadsSearchResult.getMetadata(): GoodReadsMetadata =
+    metaFromUrl(url)
+
+private fun metaFromUrl(url: String): GoodReadsMetadata {
     val document = GetHtml(url)
     return GoodReadsMetadata(
         url = url,

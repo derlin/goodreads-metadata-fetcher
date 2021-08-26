@@ -1,4 +1,4 @@
-package ch.derlin.grmetafetcher
+package ch.derlin.grmetafetcher.internal
 
 import assertk.assertAll
 import assertk.assertThat
@@ -6,7 +6,7 @@ import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-class ExtractDetailsTest {
+class ParsingTest {
 
 
     @Test

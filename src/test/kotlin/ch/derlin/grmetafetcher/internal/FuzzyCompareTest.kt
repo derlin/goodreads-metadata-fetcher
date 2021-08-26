@@ -1,16 +1,15 @@
-package ch.derlin.grmetafetcher
+package ch.derlin.grmetafetcher.internal
 
 import assertk.assertAll
 import assertk.assertThat
-import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import org.junit.jupiter.api.Test
 
-class UtilsTest {
+class FuzzyCompareTest {
 
     @Test
-    fun `fuzzyCompare positive matches`() {
+    fun `fuzzyCompare strict positive matches`() {
         assertAll {
             listOf(
                 "Camel Case" to "camel case",
@@ -24,12 +23,13 @@ class UtilsTest {
     }
 
     @Test
-    fun `fuzzyCompare negative matches`() {
+    fun `fuzzyCompare strict negative matches`() {
         assertAll {
             listOf(
                 "Title One" to "Title Two",
                 "mispeling" to "mispelling",
                 "prefix suffix" to "prefix",
+                "title" to "title: with subtitle",
             ).forEach { pair ->
                 assertThat(pair).transform { fuzzyCompare(it.first, it.second, strict = true) }.isFalse()
             }
@@ -46,17 +46,6 @@ class UtilsTest {
         ).forEach { pair ->
             assertThat(pair, name = "not strict").transform { fuzzyCompare(it.first, it.second, strict = false) }.isTrue()
             assertThat(pair, name = "strict").transform { fuzzyCompare(it.first, it.second, strict = true) }.isFalse()
-        }
-    }
-
-    @Test
-    fun `remove diacritics strips only accents`() {
-        listOf(
-            "äà ç éè ûü öö" to "aa c ee uu oo",
-            "lés- ?? ôt_ @ ` ^" to "les- ?? ot_ @ ` ^",
-            " Untouched " to " Untouched ",
-        ).forEach { pair ->
-            assertThat(pair.first).transform { it.removeDiacritics() }.isEqualTo(pair.second)
         }
     }
 }
