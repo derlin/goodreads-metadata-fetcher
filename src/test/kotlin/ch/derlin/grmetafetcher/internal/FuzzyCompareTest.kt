@@ -17,7 +17,7 @@ class FuzzyCompareTest {
                 "  S O M E @? S P A C E\n!;" to "somespace",
                 "éàôç..." to "eaoc",
             ).forEach { pair ->
-                assertThat(pair).transform { fuzzyCompare(it.first, it.second) }.isTrue()
+                assertThat(pair).transform { fuzzyCompare(it.first, it.second, strict = true) }.isTrue()
             }
         }
     }

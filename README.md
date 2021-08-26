@@ -11,7 +11,7 @@ TODO: publish gradle package
 After cloning the repo, run the following to install the package on your local maven repo:
 
 ```shell
-./gradlew install
+./gradlew publishToMavenLocal
 ```
 
 ### Import the library

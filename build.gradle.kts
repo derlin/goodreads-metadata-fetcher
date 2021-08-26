@@ -1,8 +1,9 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.4.32"
-    maven
+    `maven-publish`
 }
 
 group = "ch.derlin"
@@ -25,8 +26,24 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    outputs.upToDateWhen { false }
+    testLogging {
+        showStackTraces = true
+        // get actual information about failed tests in the console
+        showCauses = true
+        showExceptions = true
+        exceptionFormat = TestExceptionFormat.FULL
+    }
 }
 
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
 }
