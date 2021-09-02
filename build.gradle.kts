@@ -34,8 +34,6 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
     testImplementation("com.willowtreeapps.assertk:assertk:0.24")
     testImplementation("io.mockk:mockk:1.12.0")
-
-    testImplementation("com.google.code.gson:gson:2.8.7") // TODO
 }
 
 tasks.test {
@@ -62,6 +60,7 @@ publishing {
     }
 }
 
+// ./gradlew dokkaHtml
 // see https://kotlin.github.io/dokka/1.4.32/user_guide/gradle/usage/
 tasks.dokkaHtml.configure {
     dokkaSourceSets {

@@ -1,8 +1,8 @@
 # Module GoodReads Metadata Fetcher
 
-[![Code](https://img.shields.io/badge/code-github.com-informational.svg)](https://github.com/derlin/goodreads-metadata-fetcher)
-[![Documentation](https://img.shields.io/badge/documentation-derlin.io-informational.svg)](https://derlin.github.io/goodreads-metadata-fetcher/)
-![main workflow](https://github.com/derlin/goodreads-metadata-fetcher/actions/workflows/main.yaml/badge.svg)
+[![Code](https://img.shields.io/badge/code-github.com-informational.svg)](https://github.com/derlin/goodreads-metadata-fetcher) 
+[![Documentation](https://img.shields.io/badge/documentation-derlin.io-informational.svg)](https://derlin.github.io/goodreads-metadata-fetcher/)  
+![main workflow](https://github.com/derlin/goodreads-metadata-fetcher/actions/workflows/main.yaml/badge.svg) 
 
 This Kotlin Library implements a basic metadata lookup for [GoodReads](https://www.goodreads.com/).
 
@@ -73,19 +73,20 @@ val myBook = results.firstOrNull { match ->
     match.authors.any { it.contains("Keyes") }
 }
 // [4] actually fetch the metadata on the result (if any)
-myBook?.getMetadata()
+val meta = myBook?.getMetadata()
+meta?.let { println(it.toCompilableString()) } // use a prettier toString for console logging
 ```
 
 The result of the above snippet is:
 ```
 GoodReadsMetadata(
-    url = "https://www.goodreads.com/book/show/1391817.The_Minds_of_Billy_Milligan",
-    id = "1391817",
-    title = "The Minds of Billy Milligan",
-    authors = ["Daniel Keyes"],
-    isbn = "9780394519432",
-    pages = 374,
-    pubDate = "1981-10-01" // as a LocalDate
+  title="The Minds of Billy Milligan",
+  authors=listOf("Daniel Keyes"),
+  url="https://www.goodreads.com/book/show/1391817.The_Minds_of_Billy_Milligan",
+  id="1391817",
+  isbn="9780394519432",
+  pages=374,
+  pubDate=LocalDate.parse("1981-10-01"),
 )
 ```
 
@@ -98,22 +99,32 @@ See also [better searches](#better-searches-title-only).
 `GoodReadsLookup` also provides a convenient method to try to find the right book automatically in the list of results:
 ```kotlin
 GoodReadsLookup(title="je pense trop").findBestMatch().getMetadata()
-// => GoodReadsMetadata(url=https://www.goodreads.com/book/show/10605863-je-pense-trop, id=10605863, 
-//       title=Je pense trop : comment canaliser ce mental envahissant, authors=[Christel Petitcollin], 
-//       isbn=9782813201966, pages=252, pubDate=2010-11-22)
+//GoodReadsMetadata(
+//    title="Je pense trop : comment canaliser ce mental envahissant",
+//    authors=listOf("Christel Petitcollin"),
+//    url="https://www.goodreads.com/book/show/10605863-je-pense-trop",
+//    id="10605863",
+//    isbn="9782813201966",
+//    pages=252,
+//    pubDate=LocalDate.parse("2010-11-22"),
+//)
 
 ```
 Or more directly using `GoodReadsMetadata.lookup` (exact same):
 ```kotlin
 GoodReadsMetadata.lookup(title="Freakonomics", author="Steven Levitt, Stephen Dubner")
-// => GoodReadsMetadata(url=https://www.goodreads.com/book/show/1202.Freakonomics, id=1202, 
-//        title=Freakonomics: A Rogue Economist Explores the Hidden Side of Everything, 
-//        authors=[Steven D. Levitt, Stephen J. Dubner], 
-//        isbn=9780061234002, pages=268, pubDate=2005-04-12)
-
+//GoodReadsMetadata(
+//    title="Freakonomics: A Rogue Economist Explores the Hidden Side of Everything",
+//    authors=listOf("Steven D. Levitt", "Stephen J. Dubner"),
+//    url="https://www.goodreads.com/book/show/1202.Freakonomics",
+//    id="1202",
+//    isbn="9780061234002",
+//    pages=268,
+//    pubDate=LocalDate.parse("2005-04-12"),
+//)
 ```
 
-The library will first do a search (see `GoodReadsLookup.getAllMatches()`), 
+The library will first do a search (see `GoodReadsLookup.getMatches()`), 
 then try to find a match in the list of results, throwing a `GrNotFoundException` if none. 
 
 **IMPORTANT** for a result to be a match, the following conditions must apply:
