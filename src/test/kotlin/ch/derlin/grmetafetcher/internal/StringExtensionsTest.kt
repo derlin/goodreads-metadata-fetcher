@@ -61,7 +61,8 @@ class StringExtensionsTest {
     @Test
     fun `clean author for GoodReads search`() {
         ::cleanAuthorForSearchQuery.givenFirstReturnsSecond(
-            "Irvin D. Yalom & Ursula K. LeGuin" to "irvin yalom and ursula leguin",
+            "Irvin D. Yalom & Ursula K. LeGuin" to "Irvin Yalom Ursula LeGuin",
+            // TODO "J.K. Jung, Author Two" to "J. Jung Author Two",
         )
     }
 }

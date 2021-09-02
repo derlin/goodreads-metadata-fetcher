@@ -14,7 +14,9 @@ internal fun cleanTitleForSearchQuery(title: String) =
 
 internal fun cleanAuthorForSearchQuery(author: String) =
     // GoodReads doesn't like initials
-    cleanTitleForSearchQuery(author.removeInitials())
+    author.removeInitials()
+        .removeSeparators()
+        .trimSpaces()
 
 // ------- COMPARISONS
 
@@ -47,6 +49,9 @@ internal fun String.replaceSpecialChars() = this
     .replace(",", "")
     .replace(":", " ")
     .replace(" & ", " and ")
+
+internal fun String.removeSeparators() = this
+    .replace("[,:;&]|(and)".toRegex(), " ")
 
 internal fun String.trimSpaces() =
     replace("\\s+".toRegex(), " ").trim()

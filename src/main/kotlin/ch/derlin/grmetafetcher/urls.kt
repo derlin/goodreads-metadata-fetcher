@@ -13,13 +13,15 @@ object GoodReadsUrl {
     const val home = "https://www.goodreads.com"
 
     /**
-     * Get the full URL to a GoodReads detail page from an GoodReads ID
+     * Get the full URL to a GoodReads book detail page from a GoodReads Book ID.
      */
     fun forBookId(id: String) = "$home/book/show/$id"
 
     /**
      * Get the full URL for a search query.
-     * If author is null, the search will be in title only, else in all fields.
+     *
+     * The search will be in title only if author is `null`, in all fields otherwise.
+     * Note that except when you have very short/generic titles, searching in title only yields better results.
      */
     fun queryFor(title: String, author: String? = null): String {
         // Usually, search in title only is better

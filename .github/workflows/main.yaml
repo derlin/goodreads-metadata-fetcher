@@ -1,15 +1,11 @@
 name: Run tests & publish doc
 on:
   push:
-    branches-ignore:
-      - main
-      - gh-pages
-  pull_request:
     branches:
-      - '*'
+      - main
 
 jobs:
-  test:
+  main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -36,3 +32,25 @@ jobs:
           name: test-results
           path:  build/reports/tests/test
           retention-days: 30
+
+      - name: Generate Jar
+        if: success()
+        run: ./gradlew jar
+
+      - name: Upload Jar
+        uses: actions/upload-artifact@v2
+        with:
+          path:  build/libs/*.jar
+
+      - name: Generate Documentation
+        if: success()
+        run: ./gradlew dokkaHtml
+
+      - name: Deploy to Github Pages 🚀
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: build/dokka/html
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

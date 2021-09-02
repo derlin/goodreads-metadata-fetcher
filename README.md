@@ -1,4 +1,8 @@
-# GoodReads Metadata Fetcher
+# Module GoodReads Metadata Fetcher
+
+[![Code](https://img.shields.io/badge/code-github.com-informational.svg)](https://github.com/derlin/goodreads-metadata-fetcher)
+[![Documentation](https://img.shields.io/badge/documentation-derlin.io-informational.svg)](https://derlin.github.io/goodreads-metadata-fetcher/)
+![main workflow](https://github.com/derlin/goodreads-metadata-fetcher/actions/workflows/main.yaml/badge.svg)
 
 This Kotlin Library implements a basic metadata lookup for [GoodReads](https://www.goodreads.com/).
 
@@ -43,6 +47,8 @@ dependencies {
 ```
 
 ## Usage
+
+*NOTE*: this library might sometimes seem slow, but this is mostly due to GoodReads itself being slow ;).
 
 ### Search GoodReads and get Books metadata (interactively)
 
@@ -91,15 +97,20 @@ See also [better searches](#better-searches-title-only).
 
 `GoodReadsLookup` also provides a convenient method to try to find the right book automatically in the list of results:
 ```kotlin
-GoodReadsLookup(title = "Animal Farm", author = "George Orwell").findBestMatch()
-// => GoodReadsMetadata(url=https://www.goodreads.com/book/show/170448.Animal_Farm, id=170448, 
-//        title=Animal Farm, authors=[George Orwell], isbn=9780451526342, pages=141, pubDate=1945-08-17)
+GoodReadsLookup(title="je pense trop").findBestMatch().getMetadata()
+// => GoodReadsMetadata(url=https://www.goodreads.com/book/show/10605863-je-pense-trop, id=10605863, 
+//       title=Je pense trop : comment canaliser ce mental envahissant, authors=[Christel Petitcollin], 
+//       isbn=9782813201966, pages=252, pubDate=2010-11-22)
+
 ```
 Or more directly using `GoodReadsMetadata.lookup` (exact same):
 ```kotlin
-GoodReadsMetaData.lookup(title = "Animal Farm", author = "George Orwell")
-// => GoodReadsMetadata(url=https://www.goodreads.com/book/show/170448.Animal_Farm, id=170448, 
-//        title=Animal Farm, authors=[George Orwell], isbn=9780451526342, pages=141, pubDate=1945-08-17)
+GoodReadsMetadata.lookup(title="Freakonomics", author="Steven Levitt, Stephen Dubner")
+// => GoodReadsMetadata(url=https://www.goodreads.com/book/show/1202.Freakonomics, id=1202, 
+//        title=Freakonomics: A Rogue Economist Explores the Hidden Side of Everything, 
+//        authors=[Steven D. Levitt, Stephen J. Dubner], 
+//        isbn=9780061234002, pages=268, pubDate=2005-04-12)
+
 ```
 
 The library will first do a search (see `GoodReadsLookup.getAllMatches()`), 
@@ -133,3 +144,7 @@ and to only include author in search in cases where the title very short / gener
 If you are using `GoodReadsMetadata.lookup()` or `GoodReadsLookup.findBestMatch()`,
 we recommend you pass the author (if known) since it is used for matching, but to disable author in search
 by passing `includeAuthorInSearch = false` as argument.
+
+
+@sample samples.findBookInteractively
+@sample samples.findBookAutomatically
