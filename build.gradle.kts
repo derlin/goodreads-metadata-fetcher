@@ -1,56 +1,36 @@
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.net.URL
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
+import java.net.URL
 
-plugins {
-    kotlin("jvm") version "1.4.32"
-    id("org.jetbrains.dokka") version "1.5.0"
-    `maven-publish`
-}
+group = Config.groupId
+version = Config.version
 
 buildscript {
-    // This is to be able to configure the HTML Dokka plugin (custom styles, etc.), see `pluginConfiguration` below
+    // Import the scripts defining the `DokkaBaseConfiguration` class and the like.
+    // This is to be able to configure the HTML Dokka plugin (custom styles, etc.)
+    // Note: this can't be put in buildSrc unfortunately
     dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:1.5.0")
+        classpath("org.jetbrains.dokka:dokka-base:${Dependencies.dokka}")
     }
 }
 
-group = "ch.derlin"
-version = "1.0.0-SNAPSHOT"
+plugins {
+    Dependencies.registerPlugins(this)
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.4.32")
-    implementation("org.jsoup:jsoup:1.14.1")
-
-    testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
-    testImplementation("com.willowtreeapps.assertk:assertk:0.24")
-    testImplementation("io.mockk:mockk:1.12.0")
+    Dependencies.registerAllDependencies(this)
 }
 
-tasks.test {
-    useJUnitPlatform()
-    outputs.upToDateWhen { false } // always run tests !
-    testLogging {
-        // get actual information about failed tests in the console
-        showStackTraces = true
-        showCauses = true
-        showExceptions = true
-        exceptionFormat = TestExceptionFormat.FULL
-    }
-}
+tasks.test.configureJUnit()
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
+/* ========================================
+ * publishing
+ * ========================================= */
 
 publishing {
     publications {
@@ -59,6 +39,10 @@ publishing {
         }
     }
 }
+
+/* ========================================
+ * documentation (dokka)
+ * ========================================= */
 
 // ./gradlew dokkaHtml
 // see https://kotlin.github.io/dokka/1.4.32/user_guide/gradle/usage/

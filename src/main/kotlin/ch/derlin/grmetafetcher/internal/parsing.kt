@@ -50,7 +50,7 @@ internal fun getAuthorsFromString(authors: String): List<String> =
     authors.substringAfter("by ")
         .split(",")
         .mapNotNull { "([^(]+) ?(?:\\((.+)\\))?".toRegex().find(it.trim())?.groupValues?.drop(1) }
-        .filter { it.last().toLowerCase() in listOf("", "goodreads author") }
+        .filter { it.last().lowercase() in listOf("", "goodreads author") }
         .map { it.first().trim() }
 
 internal fun getIsbnFromString(isbn: String): String? =

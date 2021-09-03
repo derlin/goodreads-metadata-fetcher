@@ -6,7 +6,7 @@ import java.text.Normalizer
 
 internal fun cleanTitleForSearchQuery(title: String) =
     // GoodReads doesn't like commas, semi-colon... or parenthesis in the search URL, so remove all
-    title.toLowerCase()
+    title.lowercase()
         .removeContentInParentheses()
         // .removeDiacritics() this usually worsen the results
         .replaceSpecialChars()
@@ -21,7 +21,7 @@ internal fun cleanAuthorForSearchQuery(author: String) =
 // ------- COMPARISONS
 
 internal fun fuzzyCompare(expected: String, actual: String, strict: Boolean = false): Boolean {
-    fun String.cleaned() = toLowerCase()
+    fun String.cleaned() = lowercase()
         .removeDiacritics()
         .removeInitials()
         .replace("[^a-z0-9]".toRegex(), "")

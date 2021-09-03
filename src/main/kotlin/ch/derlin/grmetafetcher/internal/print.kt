@@ -4,6 +4,7 @@ import java.time.LocalDate
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
 
+@Suppress("UNCHECKED_CAST")
 internal fun <T : Any> ppDataClass(data: T): String {
     val klass = data::class as KClass<T>
     val propsInObject = klass.declaredMemberProperties.associate { it.name to it.get(data) }
