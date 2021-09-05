@@ -14,7 +14,7 @@ fun findBookInteractively() {
     val matches = GoodReadsLookup(title = title, author = author).getMatches()
 
     println("\nResults:")
-    matches.indices.take(10).forEach { println(" [$it] ${matches[it].title} by ${matches[it].authors.joinToString { "," }}") }
+    matches.indices.take(10).forEach { println(" [$it] ${matches[it].title} by ${matches[it].authors.joinToString(",")}") }
     print("\nEnter the index of the book you want: ")
     val index = reader.nextInt()
 

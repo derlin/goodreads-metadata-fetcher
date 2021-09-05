@@ -1,8 +1,7 @@
 # Module GoodReads Metadata Fetcher
 
-[![Code](https://img.shields.io/badge/code-github.com-informational.svg)](https://github.com/derlin/goodreads-metadata-fetcher) 
-[![Documentation](https://img.shields.io/badge/documentation-derlin.io-informational.svg)](https://derlin.github.io/goodreads-metadata-fetcher/)  
-![main workflow](https://github.com/derlin/goodreads-metadata-fetcher/actions/workflows/main.yaml/badge.svg) 
+| [![Code](https://img.shields.io/badge/code-github.com-informational.svg)](https://github.com/derlin/goodreads-metadata-fetcher) | [![Documentation](https://img.shields.io/badge/documentation-derlin.io-informational.svg)](https://derlin.github.io/goodreads-metadata-fetcher/) | ![main workflow](https://github.com/derlin/goodreads-metadata-fetcher/actions/workflows/main.yaml/badge.svg) 
+| :-----------: | :---------: | :---------:
 
 This Kotlin Library implements a basic metadata lookup for [GoodReads](https://www.goodreads.com/).
 

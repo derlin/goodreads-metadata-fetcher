@@ -33,6 +33,7 @@ object Dependencies {
 
     private val testDependencies = listOf(
         "org.junit.jupiter:junit-jupiter",
+        "com.google.code.gson:gson:2.8.7", // TODO
         "com.willowtreeapps.assertk:assertk:$assertk",
         "io.mockk:mockk:$mockk"
     )

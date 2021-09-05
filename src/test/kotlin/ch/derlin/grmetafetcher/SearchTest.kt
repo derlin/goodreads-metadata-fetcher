@@ -4,6 +4,7 @@ import assertk.assertAll
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFailure
+import assertk.assertions.isSuccess
 import io.mockk.every
 import io.mockk.mockkStatic
 import org.junit.jupiter.api.Test

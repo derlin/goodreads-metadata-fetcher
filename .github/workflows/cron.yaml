@@ -1,15 +1,10 @@
-name: Run tests
+name: Run E2E tests on schedule
 on:
-  push:
-    branches-ignore:
-      - main
-      - gh-pages
-  pull_request:
-    branches:
-      - '*'
-
+  schedule:
+    # run every monday (will run on the default branch, so here main)
+    - cron:  '0 0 * * 1'
 jobs:
-  test:
+  main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,12 +22,12 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Run tests
-        run: ./gradlew test
+      - name: Run e2e tests
+        run: ./gradlew check
 
-      - name: Upload Test Results
+      - name: Upload Test Results on failure
         uses: actions/upload-artifact@v2
+        if: failure()
         with:
           name: test-results
           path:  build/reports/tests/test
-          retention-days: 30

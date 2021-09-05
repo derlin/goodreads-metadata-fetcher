@@ -26,7 +26,8 @@ dependencies {
     Dependencies.registerAllDependencies(this)
 }
 
-tasks.test.configureJUnit()
+project.configureJUnit()
+project.configureE2eTests()
 
 /* ========================================
  * publishing
@@ -67,7 +68,7 @@ tasks.dokkaHtml.configure {
 
             // the samples can then be referenced using @sample package.methodName,
             // where "package" is actually the package defined in each file
-            samples.from("${file("src/test/kotlin/samples/samples.kt")}")
+            samples.from("${file("src/e2e/kotlin/samples/samples.kt")}")
 
             // configure the dokka HTML plugin, see https://kotlin.github.io/dokka/1.4.32/user_guide/gradle/usage/#applying-plugins
             // this syntax is only possible because "org.jetbrains.dokka:dokka-base" is referenced in the buildscript {}
