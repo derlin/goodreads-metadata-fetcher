@@ -50,6 +50,10 @@ data class GoodReadsMetadata(
 
     override fun toCompilableString(): String = ppDataClass(this)
 
+    /** The list of authors, comma-separated. */
+    val authorsStr: String
+        get() = authors.joinToString(", ")
+
     companion object {
         /**
          * Try to find a match on GoodReads using the given parameters, then fetch and return the associated metadata.

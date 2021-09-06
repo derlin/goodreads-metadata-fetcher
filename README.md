@@ -4,6 +4,7 @@
 | :-----------: | :---------: | :---------:
 
 This Kotlin Library implements a basic metadata lookup for [GoodReads](https://www.goodreads.com/).
+It is compatible with Android.
 
 ## Installation
 
@@ -137,6 +138,30 @@ Note that in case titles contain subtitles ("Some Title**:** some subtitle"), th
 the full title+subtitle, or only the title.
 
 See also [better searches](#better-searches-title-only).
+
+### Get all results (not only the first page)
+
+Sometimes, you want to see more than the first 20 results of a GoodReads search.
+`GoodReadsPaginatedSearchResult` is here for that.
+Either instantiate it directly from a GoodReads search page URL (see also `GoodReadsUrl`), or use `GoodReadsLookup.getAllMatchesPaginated`.
+
+Once instantiated, you can use `hasNext()` and `next()` in order to fetch more pages.
+You can get the full list of already fetched search results using `allResults()`.
+The total number of pages and last page fetched are available through `totalPages`
+and `currentPage`, which both start at `1`. The only time you get `currentPage = 0`.
+
+Example:
+```kotlin
+val paginatedResults: GoodReadsPaginatedSearchResults = GoodReadsLookup("how time war").getMatchesPaginated()
+println("Total pages available: ${paginatedResults.totalPages}")
+
+while(paginatedResults.hasNext()) {
+    val nextResults = paginatedResults.next()
+    // do something with the newest results, e.g. add them to an adapter on Android
+}
+
+paginatedResults.allResults() // here we have the complete list of results
+```
 
 ### Other
 

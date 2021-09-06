@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import samples.findBookAutomatically
 import samples.findBookInteractively
+import samples.searchGoodReadsPaginated
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
@@ -55,6 +56,12 @@ class SamplesTests {
             "[0] 1984 by George Orwell",
             orwell1984.toCompilableString()
         )
+    }
+
+    @Test
+    fun `samples searchGoodReadsPaginated works`() {
+        assertThat { searchGoodReadsPaginated() }.isSuccess()
+        assertOutputContains(*((1..3).map { "page [$it]" }.toTypedArray()))
     }
 
     private fun assertRunInteractiveWorks(title: String, author: String? = null, index: Int = 0) {

@@ -2,6 +2,7 @@ package samples
 
 import ch.derlin.grmetafetcher.GoodReadsLookup
 import ch.derlin.grmetafetcher.GoodReadsMetadata
+import ch.derlin.grmetafetcher.GoodReadsPaginatedSearchResults
 
 fun findBookInteractively() {
     val reader = java.util.Scanner(System.`in`)
@@ -14,7 +15,7 @@ fun findBookInteractively() {
     val matches = GoodReadsLookup(title = title, author = author).getMatches()
 
     println("\nResults:")
-    matches.indices.take(10).forEach { println(" [$it] ${matches[it].title} by ${matches[it].authors.joinToString(",")}") }
+    matches.indices.take(10).forEach { println(" [$it] ${matches[it].title} by ${matches[it].authorsStr}") }
     print("\nEnter the index of the book you want: ")
     val index = reader.nextInt()
 
@@ -37,4 +38,17 @@ fun findBookAutomatically() {
 
     // If you know the URL or GoodReads ID, you can use them directly
     p(GoodReadsMetadata.fromGoodReadsId("41940388"))
+}
+
+fun searchGoodReadsPaginated() {
+    val paginatedResults: GoodReadsPaginatedSearchResults = GoodReadsLookup("how time war").getMatchesPaginated()
+    println("Total pages available: ${paginatedResults.totalPages}")
+    println("Showing only first result of all pages...")
+    println()
+
+    while (paginatedResults.hasNext()) {
+        paginatedResults.next().first().let {
+            println("page [${paginatedResults.currentPage}] --> \"${it.title}\" by ${it.authorsStr}")
+        }
+    }
 }

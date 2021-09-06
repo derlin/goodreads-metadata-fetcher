@@ -4,7 +4,6 @@ import assertk.assertAll
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFailure
-import assertk.assertions.isSuccess
 import io.mockk.every
 import io.mockk.mockkStatic
 import org.junit.jupiter.api.Test
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Test
 class SearchTest {
 
     @Test
-    fun `best match finds exact match for title and fuzzy match with author`() {
+    fun `lookup best match finds exact match for title and fuzzy match with author`() {
 
         val results = results(
             Pair("simple title: with a subtitle", "The Author"),
@@ -24,7 +23,7 @@ class SearchTest {
         )
 
         mockkStatic(this::class.java.packageName + ".SearchKt") // this is needed to mock functions outside classes
-        every { search(any()) } returns (results.asSequence())
+        every { search(any<String>()) } returns (results.asSequence())
 
         assertAll {
             // simple exact match
