@@ -59,6 +59,9 @@ data class GoodReadsSearchResult(
  */
 class GoodReadsPaginatedSearchResults(searchUrl: String) {
 
+    /* Total number of results available, or zero if no result. */
+    val totalResults: Int
+
     /** Total number of result pages available, or zero if no result. */
     val totalPages: Int
 
@@ -77,6 +80,7 @@ class GoodReadsPaginatedSearchResults(searchUrl: String) {
         search(document)?.let { results.addAll(it) }
         nextPage = document.getNextResultPageLink()
         totalPages = document.getTotalResultPages()
+        totalResults = document.getTotalResults()
     }
 
     /**
@@ -128,6 +132,13 @@ internal fun search(document: Document): Sequence<GoodReadsSearchResult>? {
             url?.let { GoodReadsSearchResult(grTitle, grAuthors, url) } // ignore results without URLs (should not happen)
         }
 }
+
+internal fun Document.getTotalResults(): Int = this
+    .getElementsByClass("searchSubNavContainer")
+    .first()
+    ?.let { "of about (\\d+) results".toRegex().find(it.text()) }
+    ?.groupValues?.get(1)
+    ?.toInt() ?: 0
 
 internal fun Document.getNextResultPageLink(): String? = this
     .getElementsByClass("next_page")

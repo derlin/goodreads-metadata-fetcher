@@ -146,9 +146,13 @@ Sometimes, you want to see more than the first 20 results of a GoodReads search.
 Either instantiate it directly from a GoodReads search page URL (see also `GoodReadsUrl`), or use `GoodReadsLookup.getAllMatchesPaginated`.
 
 Once instantiated, you can use `hasNext()` and `next()` in order to fetch more pages.
-You can get the full list of already fetched search results using `allResults()`.
-The total number of pages and last page fetched are available through `totalPages`
-and `currentPage`, which both start at `1`. The only time you get `currentPage = 0`.
+You can get the full list of already fetched search results using `allResults()`,
+The total number of results and pages, as well as the last page fetched are available through
+`totalResults`, `totalPages` and `currentPage` (the latter starting at `1`).
+If no result is found, they will be set to `0`.
+
+*NOTE*: `GoodReadsPaginatedSearchResult` does network calls inside the constructor, so ensure you instantiate
+it in a background task on Android.
 
 Example:
 ```kotlin

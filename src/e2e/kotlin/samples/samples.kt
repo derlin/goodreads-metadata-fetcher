@@ -42,7 +42,7 @@ fun findBookAutomatically() {
 
 fun searchGoodReadsPaginated() {
     val paginatedResults: GoodReadsPaginatedSearchResults = GoodReadsLookup("how time war").getMatchesPaginated()
-    println("Total pages available: ${paginatedResults.totalPages}")
+    println("Found ${paginatedResults.totalResults} results across ${paginatedResults.totalPages} pages")
     println("Showing only first result of all pages...")
     println()
 
