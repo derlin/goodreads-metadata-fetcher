@@ -1,0 +1,10 @@
+#logo {
+    background-image: url('../images/logo.svg');
+    background-size: contain;
+    height: 100px;
+}
+
+/* Hide run button for samples, as they are using Kotlin Playground, which hasn't our library installed. */
+.run-button {
+    visibility: hidden;
+}

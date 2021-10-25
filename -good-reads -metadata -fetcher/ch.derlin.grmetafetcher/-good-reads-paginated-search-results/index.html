@@ -1,0 +1,180 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>GoodReadsPaginatedSearchResults</title>
+<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script src="https://unpkg.com/kotlin-playground@1" data-selector="code.runnablesample"></script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script><link href="../../../images/logo-icon.svg"><link href="../../../images/logo.svg"><link href="../../../styles/custom-styles.css" rel="Stylesheet">  </head>
+  <body>
+    <div id="container">
+      <div id="leftColumn"><a href="../../../index.html">
+          <div id="logo"></div>
+        </a>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <div id="leftToggler"><span class="icon-toggler"></span></div>
+<script type="text/javascript" src="../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="GoodReads Metadata Fetcher::ch.derlin.grmetafetcher/GoodReadsPaginatedSearchResults///PointingToDeclaration//769193423">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">GoodReads Metadata Fetcher</a>/<a href="../index.html">ch.derlin.grmetafetcher</a>/<a href="index.html">GoodReadsPaginatedSearchResults</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Good</span><wbr></wbr><span>Reads</span><wbr></wbr><span>Paginated</span><wbr></wbr><span>Search</span><wbr></wbr><span>Results</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">class <a href="index.html">GoodReadsPaginatedSearchResults</a>(searchUrl: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Wrapper of <a href="../-good-reads-search-result/index.html">GoodReadsSearchResult</a> that can be used to fetch more than the results of the first page.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button><button class="section-tab" data-togglable="Samples">Samples</button><button class="section-tab" data-togglable="See also">See also</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Samples</h2>
+              <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="sample-container"><code class="runnablesample monospace" theme="idea"><pre>import ch.derlin.grmetafetcher.GoodReadsLookup
+import ch.derlin.grmetafetcher.GoodReadsMetadata
+import ch.derlin.grmetafetcher.GoodReadsPaginatedSearchResults
+fun main() { 
+   //sampleStart 
+   val paginatedResults: GoodReadsPaginatedSearchResults = GoodReadsLookup(&quot;how time war&quot;).getMatchesPaginated()
+println(&quot;Found ${paginatedResults.totalResults} results across ${paginatedResults.totalPages} pages&quot;)
+println(&quot;Showing only first result of all pages...&quot;)
+println()
+
+while (paginatedResults.hasNext()) {
+    paginatedResults.next().first().let {
+        println(&quot;page [${paginatedResults.currentPage}] --&gt; \&quot;${it.title}\&quot; by ${it.authorsStr}&quot;)
+    }
+} 
+   //sampleEnd
+}</pre></code></div></div></div>
+              <h2 class="">See also</h2>
+              <div data-togglable="See also">
+                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="See also"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div data-togglable="See also"><div class="table" data-togglable="See also"><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes RowTitle"><div class=""><span class="inline-flex"><a href="../-good-reads-lookup/get-matches-paginated.html">ch.derlin.grmetafetcher.GoodReadsLookup</a></span><span class="inline-flex"><div data-togglable="See also"></div></span></div><div></div></div></div></div></div></div></div>
+              </div>
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="718802717%2FConstructors%2F769193423" anchor-label="GoodReadsPaginatedSearchResults" id="718802717%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-good-reads-paginated-search-results.html">GoodReadsPaginatedSearchResults</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="718802717%2FConstructors%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="-good-reads-paginated-search-results.html">GoodReadsPaginatedSearchResults</a>(searchUrl: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="-403875651%2FFunctions%2F769193423" anchor-label="allResults" id="-403875651%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="all-results.html">allResults</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-403875651%2FFunctions%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="all-results.html">allResults</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-good-reads-search-result/index.html">GoodReadsSearchResult</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="-403875651%2FFunctions%2F769193423" anchor-label="allResults" id="-403875651%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="-403875651%2FFunctions%2F769193423" anchor-label="allResults" id="-403875651%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Return all the fetched results so far.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1473200475%2FFunctions%2F769193423" anchor-label="hasNext" id="1473200475%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="has-next.html">hasNext</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1473200475%2FFunctions%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="has-next.html">hasNext</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1473200475%2FFunctions%2F769193423" anchor-label="hasNext" id="1473200475%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="1473200475%2FFunctions%2F769193423" anchor-label="hasNext" id="1473200475%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Returns true if there are more results available (a next page is present), should always be called prior to <a href="next.html">next</a>.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1841328735%2FFunctions%2F769193423" anchor-label="next" id="1841328735%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="next.html">next</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1841328735%2FFunctions%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="next.html">next</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-good-reads-search-result/index.html">GoodReadsSearchResult</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="1841328735%2FFunctions%2F769193423" anchor-label="next" id="1841328735%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="1841328735%2FFunctions%2F769193423" anchor-label="next" id="1841328735%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Fetch the next list of results from the page, also updating the <span data-unresolved-link="ch.derlin.grmetafetcher/GoodReadsPaginatedSearchResults/results/#/PointingToDeclaration/">results</span> list.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="-1950107328%2FProperties%2F769193423" anchor-label="currentPage" id="-1950107328%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="current-page.html">currentPage</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1950107328%2FProperties%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-1950107328%2FProperties%2F769193423" anchor-label="currentPage" id="-1950107328%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">var <a href="current-page.html">currentPage</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> = 0<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1950107328%2FProperties%2F769193423" anchor-label="currentPage" id="-1950107328%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Latest fetched page, <code>0</code> if <a href="next.html">next</a> has never been called.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1537443666%2FProperties%2F769193423" anchor-label="totalPages" id="1537443666%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="total-pages.html">totalPages</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1537443666%2FProperties%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="1537443666%2FProperties%2F769193423" anchor-label="totalPages" id="1537443666%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">val <a href="total-pages.html">totalPages</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1537443666%2FProperties%2F769193423" anchor-label="totalPages" id="1537443666%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>Total number of result pages available, or zero if no result.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1358406944%2FProperties%2F769193423" anchor-label="totalResults" id="1358406944%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="total-results.html">totalResults</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1358406944%2FProperties%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="1358406944%2FProperties%2F769193423" anchor-label="totalResults" id="1358406944%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">val <a href="total-results.html">totalResults</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Sources</h2>
+              <div class="table" data-togglable="Sources"><a data-name="-265964627%2FSource%2F769193423" anchor-label="https://github.com/derlin/goodreads-metadata-fetcher/tree/main/src/main/kotlin/ch/derlin/grmetafetcher/search.kt#L54" id="-265964627%2FSource%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="https://github.com/derlin/goodreads-metadata-fetcher/tree/main/src/main/kotlin/ch/derlin/grmetafetcher/search.kt#L54">jvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-265964627%2FSource%2F769193423"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>Made with ❤ by Derlin</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  </body>
+</html>
+
