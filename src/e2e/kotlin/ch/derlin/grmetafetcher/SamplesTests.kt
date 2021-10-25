@@ -28,14 +28,14 @@ class SamplesTests {
         pubDate = LocalDate.parse("1949-04-08"),
     )
 
-    private val freakonomics = GoodReadsMetadata(
-        title = "Freakonomics: A Rogue Economist Explores the Hidden Side of Everything",
-        authors = listOf("Steven D. Levitt", "Stephen J. Dubner"),
-        url = "https://www.goodreads.com/book/show/1202.Freakonomics",
-        id = "1202",
-        isbn = "9780061234002",
-        pages = 268,
-        pubDate = LocalDate.parse("2005-04-12"),
+    private val mastersOfDoom = GoodReadsMetadata(
+        title="Masters of Doom: How Two Guys Created an Empire and Transformed Pop Culture",
+        authors=listOf("David Kushner"),
+        url="https://www.goodreads.com/book/show/222146.Masters_of_Doom",
+        id="222146",
+        isbn="9780812972153",
+        pages=339,
+        pubDate=LocalDate.parse("2003-01-01"),
     )
 
     @BeforeEach
@@ -46,7 +46,7 @@ class SamplesTests {
     @Test
     fun `samples findBookAutomatically works`() {
         assertThat { findBookAutomatically() }.isSuccess()
-        assertOutputContains(freakonomics.toCompilableString())
+        assertOutputContains(mastersOfDoom.toCompilableString())
     }
 
     @Test

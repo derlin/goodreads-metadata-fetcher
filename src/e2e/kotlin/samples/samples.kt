@@ -31,7 +31,7 @@ fun findBookAutomatically() {
     // Authors will match without the initials, and can be ignored in search for specific/long enough titles
     p(GoodReadsMetadata.lookup("House of Leaves", "Mark Danielewski", includeAuthorInSearch = false))
     // Subtitle can be ignored in lookup
-    p(GoodReadsMetadata.lookup(title = "Freakonomics"))
+    p(GoodReadsMetadata.lookup(title = "Masters of Doom"))
 
     // The same can be achieved using GoodReadsLookup // accents don't matter
     p(GoodReadsLookup(title = "la cle de salomon").findBestMatch().getMetadata())
