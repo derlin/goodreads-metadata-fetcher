@@ -21,21 +21,21 @@ class SamplesTests {
     private val orwell1984 = GoodReadsMetadata(
         title = "1984",
         authors = listOf("George Orwell"),
-        url = "https://www.goodreads.com/book/show/40961427-1984",
-        id = "40961427",
-        isbn = null,
-        pages = 298,
+        url = "https://www.goodreads.com/book/show/61439040-1984",
+        id = "61439040",
+        isbn = "9780452284234",
+        pages = null,
         pubDate = LocalDate.parse("1949-04-08"),
     )
 
     private val mastersOfDoom = GoodReadsMetadata(
-        title="Masters of Doom: How Two Guys Created an Empire and Transformed Pop Culture",
-        authors=listOf("David Kushner"),
-        url="https://www.goodreads.com/book/show/222146.Masters_of_Doom",
-        id="222146",
-        isbn="9780812972153",
-        pages=339,
-        pubDate=LocalDate.parse("2003-01-01"),
+        title = "Masters of Doom: How Two Guys Created an Empire and Transformed Pop Culture",
+        authors = listOf("David Kushner"),
+        url = "https://www.goodreads.com/book/show/222146.Masters_of_Doom",
+        id = "222146",
+        isbn = "9780812972153",
+        pages = 339,
+        pubDate = LocalDate.parse("2003-01-01"),
     )
 
     @BeforeEach
