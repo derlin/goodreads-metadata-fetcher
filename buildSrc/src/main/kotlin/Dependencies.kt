@@ -5,16 +5,16 @@ import org.gradle.plugin.use.PluginDependenciesSpec
 // a nice alternative is presented here: https://medium.com/swlh/gradles-kotlin-dsl-buildsrc-4434100a07d7
 object Dependencies {
     // base versions
-    const val kotlin = "1.5.0"
-    const val dokka = "1.5.0"
+    const val kotlin = "1.7.10"
+    const val dokka = "1.7.10"
 
     // main versions
-    private const val jsoup = "1.14.1"
+    private const val jsoup = "1.15.2"
 
     // test versions
-    private const val junit = "5.6.0"
-    private const val assertk = "0.24"
-    private const val mockk = "1.12.0"
+    private const val junit = "5.9.0"
+    private const val assertk = "0.25"
+    private const val mockk = "1.12.5"
 
     val plugins = listOf(
         "org.jetbrains.kotlin.jvm" to kotlin,
