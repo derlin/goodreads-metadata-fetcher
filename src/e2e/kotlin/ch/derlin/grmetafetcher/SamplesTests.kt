@@ -19,14 +19,14 @@ class SamplesTests {
     private val outStream: ByteArrayOutputStream = ByteArrayOutputStream().also { System.setOut(PrintStream(it)) }
 
     private val orwell1984 = GoodReadsMetadata(
-        title = "1984",
-        authors = listOf("George Orwell"),
-        url = "https://www.goodreads.com/book/show/61439040-1984",
-        id = "61439040",
-        isbn = "9780452284234",
-        pages = null,
-        pubDate = LocalDate.parse("1949-04-08"),
-    )
+        title="1984",
+        authors=listOf("George Orwell"),
+        url="https://www.goodreads.com/book/show/61439040-1984",
+        id="61439040",
+        isbn="9780452284234",
+        pages=368,
+        pubDate=LocalDate.parse("1949-01-01"),
+        )
 
     private val mastersOfDoom = GoodReadsMetadata(
         title = "Masters of Doom: How Two Guys Created an Empire and Transformed Pop Culture",
