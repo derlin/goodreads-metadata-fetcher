@@ -18,6 +18,7 @@ class ParsingTest {
                 "by Sylvain Neuvel, Georges Orwell, Max Pix" to listOf("Sylvain Neuvel", "Georges Orwell", "Max Pix"),
                 "by Sylvain Neuvel (GoodReads Author), Georges Orwell, Max Pix (Illustrator)" to listOf("Sylvain Neuvel", "Georges Orwell"),
                 "Hervé Girardô" to listOf("Hervé Girardô"),
+                "Harlan Coben (Goodreads Author) (Goodreads Author)" to listOf("Harlan Coben"),
                 "" to listOf(),
             ).forEach { pair ->
                 assertThat(pair.first).transform { getAuthorsFromString(it) }.isEqualTo(pair.second)

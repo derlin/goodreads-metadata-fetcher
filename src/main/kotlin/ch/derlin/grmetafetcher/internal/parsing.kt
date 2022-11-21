@@ -8,7 +8,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
-import java.util.*
+import java.util.Locale
 
 
 // ------- GET HTML
@@ -45,13 +45,14 @@ internal val pubDateFormat = DateTimeFormatterBuilder()
 
 internal fun getAuthorsFromString(authors: String): List<String> =
 // Authors is in the form "by First Last[, First Last]"
-// Some authors have a role, e.g. "First Last (GoodReads Author)", or "First Last (Illustrator)"
+// Some authors have one or multiple roles, e.g. "First Last (GoodReads Author)", or "First Last (Illustrator)"
     // Here, only the main authors are returned, that no role OR GoodReads Author role
     authors.substringAfter("by ")
         .split(",")
-        .mapNotNull { "([^(]+) ?(?:\\((.+)\\))?".toRegex().find(it.trim())?.groupValues?.drop(1) }
-        .filter { it.last().lowercase() in listOf("", "goodreads author") }
-        .map { it.first().trim() }
+        .mapNotNull { "([^(]+) ?(\\(.+\\))?".toRegex().find(it.trim())?.groupValues }
+        .mapNotNull { (_, author, roles) ->
+            author.trim().takeIf { roles.isBlank() || "(goodreads author)" in roles.lowercase() }
+        }
 
 internal fun getIsbnFromString(isbn: String): String? =
     // The last digit of ISBN10 is a checksum (modulo 11), and the roman numeral "X" is used to represent "10"
