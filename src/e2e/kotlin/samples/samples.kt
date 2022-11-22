@@ -3,6 +3,8 @@ package samples
 import ch.derlin.grmetafetcher.GoodReadsLookup
 import ch.derlin.grmetafetcher.GoodReadsMetadata
 import ch.derlin.grmetafetcher.GoodReadsPaginatedSearchResults
+import ch.derlin.grmetafetcher.Retry
+import ch.derlin.grmetafetcher.RetryConfiguration
 
 fun findBookInteractively() {
     val reader = java.util.Scanner(System.`in`)
@@ -51,4 +53,21 @@ fun searchGoodReadsPaginated() {
             println("page [${paginatedResults.currentPage}] --> \"${it.title}\" by ${it.authorsStr}")
         }
     }
+}
+
+@Suppress("unused")
+fun lookupWithRetry() {
+    // A Retry must be instantiated with a configuration.
+    // It also supports a custom lambda to tell when to retry. By default, it retries on any 5XX server error.
+    var retrier: Retry
+    // Two configurations exist: EXPONENTIAL, and SIMPLE
+    retrier = Retry(RetryConfiguration.EXPONENTIAL)
+    // Each default configuration can be customized, e.g.
+    retrier = Retry(RetryConfiguration.EXPONENTIAL.copy(maxRetries = 10))
+    // Or a completely custom configuration can be provided:
+    retrier = Retry(RetryConfiguration(maxRetries = 3, interval = 200, multiplier = 1f))
+
+    // Once we have a Retry instance, we can use .run, like this:
+    val result = retrier.run { GoodReadsMetadata.lookup(title = "Project Hail Mary") }
+    println(result.toCompilableString())
 }

@@ -1,4 +1,5 @@
-import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.kotlin.dsl.version
 import org.gradle.plugin.use.PluginDependenciesSpec
 
 // see https://proandroiddev.com/avoid-repetitive-dependency-declarations-with-gradle-kotlin-dsl-97c904704727
@@ -6,7 +7,7 @@ import org.gradle.plugin.use.PluginDependenciesSpec
 object Dependencies {
     // base versions
     const val kotlin = "1.7.10"
-    const val dokka = "1.7.10"
+    const val dokka = kotlin
 
     // main versions
     private const val jsoup = "1.15.2"

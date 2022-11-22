@@ -59,7 +59,7 @@ data class GoodReadsSearchResult(
  */
 class GoodReadsPaginatedSearchResults(searchUrl: String) {
 
-    /* Total number of results available, or zero if no result. */
+    /** Total number of results available, or zero if no result. */
     val totalResults: Int
 
     /** Total number of result pages available, or zero if no result. */

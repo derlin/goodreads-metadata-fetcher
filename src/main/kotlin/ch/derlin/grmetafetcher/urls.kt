@@ -4,7 +4,9 @@ import ch.derlin.grmetafetcher.internal.cleanAuthorForSearchQuery
 import ch.derlin.grmetafetcher.internal.cleanTitleForSearchQuery
 import java.net.URLEncoder
 
-
+/**
+ * Helper object to construct GoodReads URLs.
+ */
 object GoodReadsUrl {
 
     /**

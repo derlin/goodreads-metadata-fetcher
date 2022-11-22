@@ -1,7 +1,13 @@
 package ch.derlin.grmetafetcher
 
-import ch.derlin.grmetafetcher.internal.*
+import ch.derlin.grmetafetcher.internal.fuzzyCompare
+import ch.derlin.grmetafetcher.internal.ppDataClass
+import ch.derlin.grmetafetcher.internal.removeInitials
 
+/**
+ * Classes implementing this interface should provide a method for printing themselves into "compilable strings",
+ * that is strings that can be copy-pasted into a kotlin file and compile.
+ */
 interface CompilableToString {
     /** Should return the String representation of this class as a compilable snippet (can be copy-pasted into Kotlin code). */
     fun toCompilableString(): String
@@ -29,7 +35,7 @@ data class GoodReadsLookup(
      * Whether to use the author in the search query (search all fields) or not (search title only).
      * This is useful because except when the title is very generic, a search in title only gives better results.
      */
-    val includeAuthorInSearch: Boolean = author != null
+    val includeAuthorInSearch: Boolean = author != null,
 ) : CompilableToString {
     /**
      * Search URL on GoodReads for. Note that the title (and maybe authors) are sanitized for better results.
@@ -90,4 +96,3 @@ internal fun doTitlesMatch(givenTitle: String, goodReadsTitle: String) =
 internal fun doAuthorsMatch(givenAuthors: String?, goodReadsAuthors: List<String>) =
     givenAuthors == null ||
             fuzzyCompare(givenAuthors.removeInitials(), goodReadsAuthors.joinToString(" ").removeInitials(), strict = false)
-

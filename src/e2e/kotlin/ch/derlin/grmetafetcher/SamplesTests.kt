@@ -17,16 +17,17 @@ import java.time.LocalDate
 class SamplesTests {
 
     private val outStream: ByteArrayOutputStream = ByteArrayOutputStream().also { System.setOut(PrintStream(it)) }
+    private val retrier = Retry(RetryConfiguration.EXPONENTIAL)
 
     private val orwell1984 = GoodReadsMetadata(
-        title="1984",
-        authors=listOf("George Orwell"),
-        url="https://www.goodreads.com/book/show/61439040-1984",
-        id="61439040",
-        isbn="9780452284234",
-        pages=368,
-        pubDate=LocalDate.parse("1949-01-01"),
-        )
+        title = "1984",
+        authors = listOf("George Orwell"),
+        url = "https://www.goodreads.com/book/show/61439040-1984",
+        id = "61439040",
+        isbn = "9780452284234",
+        pages = 368,
+        pubDate = LocalDate.parse("1949-01-01"),
+    )
 
     private val mastersOfDoom = GoodReadsMetadata(
         title = "Masters of Doom: How Two Guys Created an Empire and Transformed Pop Culture",
@@ -45,23 +46,30 @@ class SamplesTests {
 
     @Test
     fun `samples findBookAutomatically works`() {
-        assertThat { findBookAutomatically() }.isSuccess()
-        assertOutputContains(mastersOfDoom.toCompilableString())
+        retrier.run {
+            assertThat { findBookAutomatically() }.isSuccess()
+            assertOutputContains(mastersOfDoom.toCompilableString())
+            println(".")
+        }
     }
 
     @Test
     fun `samples findBookInteractively works`() {
-        assertRunInteractiveWorks("1984")
-        assertOutputContains(
-            "[0] 1984 by George Orwell",
-            orwell1984.toCompilableString()
-        )
+        retrier.run {
+            assertRunInteractiveWorks("1984")
+            assertOutputContains(
+                "[0] 1984 by George Orwell",
+                orwell1984.toCompilableString()
+            )
+        }
     }
 
     @Test
     fun `samples searchGoodReadsPaginated works`() {
-        assertThat { searchGoodReadsPaginated() }.isSuccess()
-        assertOutputContains(*((1..3).map { "page [$it]" }.toTypedArray()))
+        retrier.run {
+            assertThat { searchGoodReadsPaginated() }.isSuccess()
+            assertOutputContains(*((1..3).map { "page [$it]" }.toTypedArray()))
+        }
     }
 
     private fun assertRunInteractiveWorks(title: String, author: String? = null, index: Int = 0) {

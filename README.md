@@ -184,6 +184,15 @@ If you are using `GoodReadsMetadata.lookup()` or `GoodReadsLookup.findBestMatch(
 we recommend you pass the author (if known) since it is used for matching, but to disable author in search
 by passing `includeAuthorInSearch = false` as argument.
 
+### Retry on server fault
+
+GoodReads tends to be a bit unstable, and may raise HTTP 5XX once in a while.
+To avoid your code crashing on such cases, The `Retry` class is here to help.
+Simply instantiate a `Retry` with the `RetryConfiguration` you need, and wrap
+your calls to GoodReads into a `retrier.run { }` block.
+
+See the samples below for examples. 
 
 @sample samples.findBookInteractively
 @sample samples.findBookAutomatically
+@sample samples.lookupWithRetry
