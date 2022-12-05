@@ -26,7 +26,7 @@ class SamplesTests {
         id = "61439040",
         isbn = "9780452284234",
         pages = 368,
-        pubDate = LocalDate.parse("1949-01-01"),
+        pubDate = LocalDate.parse("1949-06-08"),
     )
 
     private val mastersOfDoom = GoodReadsMetadata(
