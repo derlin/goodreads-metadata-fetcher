@@ -4,6 +4,7 @@ import org.jsoup.nodes.Document
 import java.io.Serializable
 import java.time.LocalDate
 import ch.derlin.grmetafetcher.internal.*
+import java.time.format.DateTimeFormatter
 
 /**
  * Get book metadata from a GoodReads details page, a GoodReads ID or title/author.
@@ -105,17 +106,21 @@ internal fun metaFromUrl(url: String): GoodReadsMetadata {
 // --- EXTRACT METADATA FROM DOCUMENT
 
 private fun Document.getGoodReadsId(): String =
-    this.getElementsByAttribute("data-book-id").first()
-        .required { "Could not find goodreads ID" }
-        .attr("data-book-id")
+    // The ID can only be found in the canonical link on a detail page
+    // <link href="https://www.goodreads.com/book/show/58950899-the-this" rel="canonical">
+    this.getElementsByAttributeValue("rel", "canonical").first()
+        .required { "Could not find canonical URL for GoodReads ID" }
+        .attr("href")
+        .split("/").last()
+        .takeWhile { it.isDigit() }
 
 private fun Document.getTitle(): String =
-    this.getElementById("bookTitle")
+    this.getElementsByAttributeValue("data-testid", "bookTitle").first()
         .required { "Could not find book title" }
         .text()
 
 private fun Document.getAuthors(): List<String> =
-    this.getElementById("bookAuthors")
+    this.getElementsByClass("ContributorLinksList").first()
         .required { "Could not find authors div" }
         .text().let { text ->
             getAuthorsFromString(text).ifEmpty {
@@ -124,24 +129,21 @@ private fun Document.getAuthors(): List<String> =
         }
 
 private fun Document.getIsbn(): String? =
-    this.getElementById("bookDataBox")
-        ?.getElementsByClass("infoBoxRowTitle")
-        ?.find { it.text().contains("ISBN") }
-        ?.nextElementSibling()
-        ?.text()
-        ?.let { getIsbnFromString(it) }
+    "\"isbn\":\"(\\d+)\"".toRegex().find(this.getJsonData())?.groupValues?.get(1)
 
 private fun Document.getNumberOfPages(): Int? =
-    this.getElementById("details")
-        ?.getElementsByAttribute("itemprop")
-        ?.find { it.attr("itemprop") == "numberOfPages" }
-        ?.text() // usually in the form XXX pages
-        ?.split(" ")?.first()?.toInt()
+    "\"numberOfPages\": ?(\\d+)".toRegex().find(this.getJsonData())?.groupValues?.get(1)?.toInt()
 
-private fun Document.getPublicationDate(): LocalDate? {
-    // publication information is in the second div of #details
-    val details = this.getElementById("details")
-    if ((details?.childrenSize() ?: 0) < 2) return null
+private fun Document.getPublicationDate(): LocalDate? =
+    this.getElementsByAttributeValue("data-testid", "publicationInfo").first()
+        .required { "Could not find publicationInfo" }
+        .text()
+        .removePrefix("Published ").removePrefix("First published ")
+        .let { LocalDate.parse(it, DateTimeFormatter.ofPattern("MMMM d, yyyy")) }
 
-    return details?.child(1)?.text()?.let { getPublicationDateFromString(it) }
-}
+
+
+private fun Document.getJsonData(): String =
+    this.getElementsByAttributeValue("type", "application/ld+json").first()
+        .required { "Could not find JSON metadata information in page" }
+        .data()
