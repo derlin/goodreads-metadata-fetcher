@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>GoodReadsLookup</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script src="https://unpkg.com/kotlin-playground@1"></script><script src="https://unpkg.com/kotlin-playground@1"></script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../images/logo.svg">
+<link href="../../../styles/custom-styles.css" rel="Stylesheet">
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../index.html">
+                    <span>GoodReads Metadata Fetcher</span>
+            </a>
+    </div>
+    <div>
+1.0.0-SNAPSHOT    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="GoodReads Metadata Fetcher::ch.derlin.grmetafetcher/GoodReadsLookup///PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../index.html">GoodReads Metadata Fetcher</a><span class="delimiter">/</span><a href="../index.html">ch.derlin.grmetafetcher</a><span class="delimiter">/</span><a href="index.html">GoodReadsLookup</a></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Good</span><wbr></wbr><span>Reads</span><wbr></wbr><span><span>Lookup</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">GoodReadsLookup</a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>title<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>author<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>includeAuthorInSearch<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>author != null</span></span><span class="token punctuation">)</span> : <a href="../-compilable-to-string/index.html">CompilableToString</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Find books on GoodReads.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Sources">Sources</button><button class="section-tab" data-togglable="Samples">Samples</button></div>
+    <div class="tabs-section-body">
+      <h2 class="">Samples</h2>
+      <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.derlin.grmetafetcher.GoodReadsLookup
+import ch.derlin.grmetafetcher.GoodReadsMetadata
+import ch.derlin.grmetafetcher.GoodReadsPaginatedSearchResults
+import ch.derlin.grmetafetcher.Retry
+import ch.derlin.grmetafetcher.RetryConfiguration
+fun main() { 
+   //sampleStart 
+   val p: (GoodReadsMetadata) -&gt; Unit = { println(it.toCompilableString()) }
+
+// very shot titles need authors to match
+p(GoodReadsMetadata.lookup(title = &quot;substance&quot;, author = &quot;claro&quot;))
+// Authors will match without the initials, and can be ignored in search for specific/long enough titles
+p(GoodReadsMetadata.lookup(&quot;House of Leaves&quot;, &quot;Mark Danielewski&quot;, includeAuthorInSearch = false))
+// Subtitle can be ignored in lookup
+p(GoodReadsMetadata.lookup(title = &quot;Masters of Doom&quot;))
+
+// The same can be achieved using GoodReadsLookup // accents don't matter
+p(GoodReadsLookup(title = &quot;la cle de salomon&quot;).findBestMatch().getMetadata())
+
+// If you know the URL or GoodReads ID, you can use them directly
+p(GoodReadsMetadata.fromGoodReadsId(&quot;41940388&quot;)) 
+   //sampleEnd
+}</code></pre></div><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.derlin.grmetafetcher.GoodReadsLookup
+import ch.derlin.grmetafetcher.GoodReadsMetadata
+import ch.derlin.grmetafetcher.GoodReadsPaginatedSearchResults
+import ch.derlin.grmetafetcher.Retry
+import ch.derlin.grmetafetcher.RetryConfiguration
+fun main() { 
+   //sampleStart 
+   val reader = java.util.Scanner(System.`in`)
+
+print(&quot;Enter a book title: &quot;)
+val title = reader.nextLine()
+print(&quot;Enter an author (press enter for none): &quot;)
+val author = reader.nextLine().ifBlank { null }
+
+val matches = GoodReadsLookup(title = title, author = author).getMatches()
+
+println(&quot;\nResults:&quot;)
+matches.indices.take(10).forEach { println(&quot; [$it] ${matches[it].title} by ${matches[it].authorsStr}&quot;) }
+print(&quot;\nEnter the index of the book you want: &quot;)
+val index = reader.nextInt()
+
+println(&quot;\nMetadata:&quot;)
+println(matches[index].getMetadata().toCompilableString()) 
+   //sampleEnd
+}</code></pre></div></div></div>
+      <h2 class="tabbedcontent">Constructors</h2>
+      <div class="table" data-togglable="Constructors"><a data-name="1401094325%2FConstructors%2F769193423" anchor-label="GoodReadsLookup" id="1401094325%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue TabbedContent">
+            <div class=""><span class="inline-flex">
+                <div><a href="-good-reads-lookup.html"><span>Good</span><wbr></wbr><span>Reads</span><wbr></wbr><span><span>Lookup</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1401094325%2FConstructors%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-good-reads-lookup.html"><span class="token function">GoodReadsLookup</span></a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;title<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;author<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;includeAuthorInSearch<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>author != null</span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="-416021657%2FFunctions%2F769193423" anchor-label="findBestMatch" id="-416021657%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="find-best-match.html"><span>find</span><wbr></wbr><span>Best</span><wbr></wbr><span><span>Match</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-416021657%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="find-best-match.html"><span class="token function">findBestMatch</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-good-reads-search-result/index.html">GoodReadsSearchResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Search and try to find the best match for the given title (and maybe authors) on GoodReads.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1644069010%2FFunctions%2F769193423" anchor-label="getMatches" id="-1644069010%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-matches.html"><span>get</span><wbr></wbr><span><span>Matches</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1644069010%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-matches.html"><span class="token function">getMatches</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-good-reads-search-result/index.html">GoodReadsSearchResult</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Get the list of matches for the given search query (see <a href="search-url.html">searchUrl</a>). Note that only the results appearing on the first page are returned, hence a maximum of 20 results.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="200898847%2FFunctions%2F769193423" anchor-label="getMatchesPaginated" id="200898847%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-matches-paginated.html"><span>get</span><wbr></wbr><span>Matches</span><wbr></wbr><span><span>Paginated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="200898847%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-matches-paginated.html"><span class="token function">getMatchesPaginated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-good-reads-paginated-search-results/index.html">GoodReadsPaginatedSearchResults</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Get the list of matches for the given search query (see <a href="search-url.html">searchUrl</a>), paginated.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-26850765%2FFunctions%2F769193423" anchor-label="toCompilableString" id="-26850765%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="to-compilable-string.html"><span>to</span><wbr></wbr><span>Compilable</span><wbr></wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-26850765%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="to-compilable-string.html"><span class="token function">toCompilableString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Should return the String representation of this class as a compilable snippet (can be copy-pasted into Kotlin code).</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="-1266223712%2FProperties%2F769193423" anchor-label="author" id="-1266223712%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="author.html"><span><span>author</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1266223712%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-1266223712%2FProperties%2F769193423" anchor-label="author" id="-1266223712%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="author.html">author</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1266223712%2FProperties%2F769193423" anchor-label="author" id="-1266223712%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">The (partial) author(s) to look for. If multiple authors, they can be separated by any of <code class="lang-kotlin"></code>, <code class="lang-kotlin">,</code> or <code class="lang-kotlin">&amp;</code>. If you plan to use <a href="find-best-match.html">findBestMatch</a>, the author should at least match the first author in the form &quot;FirstName Lastname&quot;.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1839010895%2FProperties%2F769193423" anchor-label="includeAuthorInSearch" id="1839010895%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="include-author-in-search.html"><span>include</span><wbr></wbr><span>Author</span><wbr></wbr><span>In</span><wbr></wbr><span><span>Search</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1839010895%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="1839010895%2FProperties%2F769193423" anchor-label="includeAuthorInSearch" id="1839010895%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="include-author-in-search.html">includeAuthorInSearch</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1839010895%2FProperties%2F769193423" anchor-label="includeAuthorInSearch" id="1839010895%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">Whether to use the author in the search query (search all fields) or not (search title only). This is useful because except when the title is very generic, a search in title only gives better results.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1144914728%2FProperties%2F769193423" anchor-label="searchUrl" id="1144914728%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="search-url.html"><span>search</span><wbr></wbr><span><span>Url</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1144914728%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="1144914728%2FProperties%2F769193423" anchor-label="searchUrl" id="1144914728%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="search-url.html">searchUrl</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1144914728%2FProperties%2F769193423" anchor-label="searchUrl" id="1144914728%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">Search URL on GoodReads for. Note that the title (and maybe authors) are sanitized for better results.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1054094953%2FProperties%2F769193423" anchor-label="title" id="-1054094953%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="title.html"><span><span>title</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1054094953%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-1054094953%2FProperties%2F769193423" anchor-label="title" id="-1054094953%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="title.html">title</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1054094953%2FProperties%2F769193423" anchor-label="title" id="-1054094953%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">The (partial) title to look for. If you plan to use <a href="find-best-match.html">findBestMatch</a>, the title should be &quot;exact&quot;.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Sources</h2>
+      <div class="table" data-togglable="Sources"><a data-name="-1988495948%2FSource%2F769193423" anchor-label="https://github.com/derlin/goodreads-metadata-fetcher/tree/main/src/main/kotlin/ch/derlin/grmetafetcher/lookup.kt#L16" id="-1988495948%2FSource%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="https://github.com/derlin/goodreads-metadata-fetcher/tree/main/src/main/kotlin/ch/derlin/grmetafetcher/lookup.kt#L16">jvm source</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1988495948%2FSource%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Made with ❤ by Derlin</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>

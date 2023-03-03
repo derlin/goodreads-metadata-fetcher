@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>GoodReads Metadata Fetcher</title>
+    <link href="images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script src="https://unpkg.com/kotlin-playground@1"></script><script src="https://unpkg.com/kotlin-playground@1"></script><script src="https://unpkg.com/kotlin-playground@1"></script><script type="text/javascript" src="scripts/sourceset_dependencies.js" async="async"></script>
+<link href="styles/style.css" rel="Stylesheet">
+<link href="styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="styles/main.css" rel="Stylesheet">
+<link href="styles/prism.css" rel="Stylesheet">
+<link href="styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="scripts/prism.js" async="async"></script>
+<link href="images/logo-icon.svg">
+<link href="images/logo.svg">
+<link href="styles/custom-styles.css" rel="Stylesheet">
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="index.html">
+                    <span>GoodReads Metadata Fetcher</span>
+            </a>
+    </div>
+    <div>
+1.0.0-SNAPSHOT    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="GoodReads Metadata Fetcher::////PointingToDeclaration//769193423">
+  <div class="breadcrumbs"></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Good</span><wbr></wbr><span><span>Reads</span></span> <span><span>Metadata</span></span> <span><span>Fetcher</span></span></h1>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><table><thead><tr><th><a href="https://github.com/derlin/goodreads-metadata-fetcher"><img alt="Code" src="https://img.shields.io/badge/code-github.com-informational.svg"></a></th><th><a href="https://derlin.github.io/goodreads-metadata-fetcher/"><img alt="Documentation" src="https://img.shields.io/badge/documentation-derlin.io-informational.svg"></a></th><th><img alt="main workflow" src="https://github.com/derlin/goodreads-metadata-fetcher/actions/workflows/main.yaml/badge.svg"></th></tr></thead><tbody></tbody></table><p class="paragraph">This Kotlin Library implements a basic metadata lookup for <a href="https://www.goodreads.com/">GoodReads</a>. It is compatible with Android.</p><h2 class=""> Installation</h2><p class="paragraph">This library is published on GitHub Packages. To learn how to use GitHub Packages, see:</p><ul><li><p class="paragraph">for Gradle projects: <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry">Working with the Gradle registry</a></p></li><li><p class="paragraph">for Maven projects: <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry">Working with the Apache Maven registry</a></p></li></ul><p class="paragraph">You can also build the library (keep reading) and then run <code class="lang-kotlin">./gradlew publishToMavenLocal</code> to make it available on your machine.</p><h3 class=""> Build the library</h3><p class="paragraph">After cloning the repo, run the following to install the package on your local maven repo:</p><div class="sample-container"><pre><code class="block lang-shell" theme="idea">./gradlew publishToMavenLocal</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h3 class=""> Import the library</h3><p class="paragraph">Given projects on the same computer.</p><p class="paragraph"><strong>Gradle Project</strong> open you module <code class="lang-kotlin">build.gradle</code> and add:</p><div class="sample-container"><pre><code class="block lang-groovy" theme="idea">repositories {<br>    // ...<br>    mavenLocal() // &lt;- use maven locally<br>}<br><br>dependencies {<br>    // ...<br>    implementation 'ch.derlin:goodreads-metadata-fetcher:1.0.0-SNAPSHOT'<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph"><strong>Maven</strong> open your <code class="lang-kotlin">pom.xml</code> and add:</p><div class="sample-container"><pre><code class="block lang-xml" theme="idea">&lt;dependency&gt;<br>    &lt;groupId&gt;ch.derlin&lt;/groupId&gt;<br>    &lt;artifactId&gt;goodreads-metadata-fetcher&lt;/artifactId&gt;<br>    &lt;version&gt;1.0.0-SNAPHOST&lt;/version&gt;<br>&lt;/dependency&gt;</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h2 class=""> Usage</h2><p class="paragraph"><i>NOTE</i>: this library might sometimes seem slow, but this is mostly due to GoodReads itself being slow ;).</p><h3 class=""> Search GoodReads and get Books metadata (interactively)</h3><p class="paragraph">You will usually first do a search on GoodReads, then select a book in the list based oh on some criteria (or user input),  and finally get the selected book's metadata.</p><p class="paragraph">This library allows you to do so easily, using the <code class="lang-kotlin">GoodReadsLookup</code> class:</p><ol><li><p class="paragraph">create a <code class="lang-kotlin">GoodReadsLookup</code> by providing some title and optionally an author;</p></li><li><p class="paragraph">call <code class="lang-kotlin">getMatches()</code>, which returns <strong>the first 20 results</strong> from GoodReads as a list of <code class="lang-kotlin">GoodReadsSearchResult</code>;</p></li><li><p class="paragraph">select one or more results that interest you based on some criteria (or user input);</p></li><li><p class="paragraph">call <code class="lang-kotlin">getMetadata()</code> from any <code class="lang-kotlin">GoodReadsSearchResult</code> that interests you.</p></li></ol><p class="paragraph">Here is an example:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">// [1] create a lookup, here on a partial title<br>val lookup = GoodReadsLookup(title = &quot;Billy Milligan&quot;)<br>// [2] fetch the 20 best results<br>val results = lookup.getMatches()<br>// [3] select some results, here based on a partial Author name<br>val myBook = results.firstOrNull { match -&gt;<br>    match.authors.any { it.contains(&quot;Keyes&quot;) }<br>}<br>// [4] actually fetch the metadata on the result (if any)<br>val meta = myBook?.getMetadata()<br>meta?.let { println(it.toCompilableString()) } // use a prettier toString for console logging</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The result of the above snippet is:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">GoodReadsMetadata(<br>  title=&quot;The Minds of Billy Milligan&quot;,<br>  authors=listOf(&quot;Daniel Keyes&quot;),<br>  url=&quot;https://www.goodreads.com/book/show/1391817.The_Minds_of_Billy_Milligan&quot;,<br>  id=&quot;1391817&quot;,<br>  isbn=&quot;9780394519432&quot;,<br>  pages=374,<br>  pubDate=LocalDate.parse(&quot;1981-10-01&quot;),<br>)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">By default, <code class="lang-kotlin">getMatches()</code> will search in all fields if an author is provided, and in title only if the author is null.  It is possible to change this behavior by setting <code class="lang-kotlin">includeAuthorInSearch = true</code>. See also #better-searches-title-only.</p><h3 class=""> Get metadata automatically</h3><p class="paragraph"><code class="lang-kotlin">GoodReadsLookup</code> also provides a convenient method to try to find the right book automatically in the list of results:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">GoodReadsLookup(title=&quot;je pense trop&quot;).findBestMatch().getMetadata()<br>//GoodReadsMetadata(<br>//    title=&quot;Je pense trop : comment canaliser ce mental envahissant&quot;,<br>//    authors=listOf(&quot;Christel Petitcollin&quot;),<br>//    url=&quot;https://www.goodreads.com/book/show/10605863-je-pense-trop&quot;,<br>//    id=&quot;10605863&quot;,<br>//    isbn=&quot;9782813201966&quot;,<br>//    pages=252,<br>//    pubDate=LocalDate.parse(&quot;2010-11-22&quot;),<br>//)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Or more directly using <code class="lang-kotlin">GoodReadsMetadata.lookup</code> (exact same):</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">GoodReadsMetadata.lookup(title=&quot;Freakonomics&quot;, author=&quot;Steven Levitt, Stephen Dubner&quot;)<br>//GoodReadsMetadata(<br>//    title=&quot;Freakonomics: A Rogue Economist Explores the Hidden Side of Everything&quot;,<br>//    authors=listOf(&quot;Steven D. Levitt&quot;, &quot;Stephen J. Dubner&quot;),<br>//    url=&quot;https://www.goodreads.com/book/show/1202.Freakonomics&quot;,<br>//    id=&quot;1202&quot;,<br>//    isbn=&quot;9780061234002&quot;,<br>//    pages=268,<br>//    pubDate=LocalDate.parse(&quot;2005-04-12&quot;),<br>//)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The library will first do a search (see <code class="lang-kotlin">GoodReadsLookup.getMatches()</code>),  then try to find a match in the list of results, throwing a <code class="lang-kotlin">GrNotFoundException</code> if none. </p><p class="paragraph"><strong>IMPORTANT</strong> for a result to be a match, the following conditions must apply:</p><ul><li><p class="paragraph">the title must match exactly (*),</p></li><li><p class="paragraph">the author(s) must all be present in the list of authors, in the correct order (initials ignored)</p></li></ul><p class="paragraph">(*) All comparisons are diacritics, symbols, space and casing insensitive.</p><p class="paragraph">Note that in case titles contain subtitles (&quot;Some Title**:** some subtitle&quot;), there will be a match either if the given title contains the full title+subtitle, or only the title.</p><p class="paragraph">See also #better-searches-title-only.</p><h3 class=""> Get all results (not only the first page)</h3><p class="paragraph">Sometimes, you want to see more than the first 20 results of a GoodReads search. <code class="lang-kotlin">GoodReadsPaginatedSearchResult</code> is here for that. Either instantiate it directly from a GoodReads search page URL (see also <code class="lang-kotlin">GoodReadsUrl</code>), or use <code class="lang-kotlin">GoodReadsLookup.getAllMatchesPaginated</code>.</p><p class="paragraph">Once instantiated, you can use <code class="lang-kotlin">hasNext()</code> and <code class="lang-kotlin">next()</code> in order to fetch more pages. You can get the full list of already fetched search results using <code class="lang-kotlin">allResults()</code>, The total number of results and pages, as well as the last page fetched are available through <code class="lang-kotlin">totalResults</code>, <code class="lang-kotlin">totalPages</code> and <code class="lang-kotlin">currentPage</code> (the latter starting at <code class="lang-kotlin">1</code>). If no result is found, they will be set to <code class="lang-kotlin">0</code>.</p><p class="paragraph"><i>NOTE</i>: <code class="lang-kotlin">GoodReadsPaginatedSearchResult</code> does network calls inside the constructor, so ensure you instantiate it in a background task on Android.</p><p class="paragraph">Example:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val paginatedResults: GoodReadsPaginatedSearchResults = GoodReadsLookup(&quot;how time war&quot;).getMatchesPaginated()<br>println(&quot;Total pages available: ${paginatedResults.totalPages}&quot;)<br><br>while(paginatedResults.hasNext()) {<br>    val nextResults = paginatedResults.next()<br>    // do something with the newest results, e.g. add them to an adapter on Android<br>}<br><br>paginatedResults.allResults() // here we have the complete list of results</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h3 class=""> Other</h3><p class="paragraph">The class <code class="lang-kotlin">GoodReadsUrl</code> offers convenient static methods to construct the search query URL from title and/or author, get the URL of a book given its GoodReads ID, etc. Check it out !</p><h2 class=""> Tips and tricks</h2><h3 class=""> Better searches: title only</h3><p class="paragraph">In general, GoodReads results are usually better when searching in title only. Hence, we highly recommend to use title only in <code class="lang-kotlin">GoodReadsLookup</code> if your title is specific enough, and to only include author in search in cases where the title very short / generic.</p><p class="paragraph">If you are using <code class="lang-kotlin">GoodReadsMetadata.lookup()</code> or <code class="lang-kotlin">GoodReadsLookup.findBestMatch()</code>, we recommend you pass the author (if known) since it is used for matching, but to disable author in search by passing <code class="lang-kotlin">includeAuthorInSearch = false</code> as argument.</p><h3 class=""> Retry on server fault</h3><p class="paragraph">GoodReads tends to be a bit unstable, and may raise HTTP 5XX once in a while. To avoid your code crashing on such cases, The <code class="lang-kotlin">Retry</code> class is here to help. Simply instantiate a <code class="lang-kotlin">Retry</code> with the <code class="lang-kotlin">RetryConfiguration</code> you need, and wrap your calls to GoodReads into a <code class="lang-kotlin">retrier.run { }</code> block.</p><p class="paragraph">See the samples below for examples. </p></div></div>
+  </div>
+  <h2 class="">Samples</h2>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Samples"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.derlin.grmetafetcher.GoodReadsLookup
+import ch.derlin.grmetafetcher.GoodReadsMetadata
+import ch.derlin.grmetafetcher.GoodReadsPaginatedSearchResults
+import ch.derlin.grmetafetcher.Retry
+import ch.derlin.grmetafetcher.RetryConfiguration
+fun main() { 
+   //sampleStart 
+   val reader = java.util.Scanner(System.`in`)
+
+print(&quot;Enter a book title: &quot;)
+val title = reader.nextLine()
+print(&quot;Enter an author (press enter for none): &quot;)
+val author = reader.nextLine().ifBlank { null }
+
+val matches = GoodReadsLookup(title = title, author = author).getMatches()
+
+println(&quot;\nResults:&quot;)
+matches.indices.take(10).forEach { println(&quot; [$it] ${matches[it].title} by ${matches[it].authorsStr}&quot;) }
+print(&quot;\nEnter the index of the book you want: &quot;)
+val index = reader.nextInt()
+
+println(&quot;\nMetadata:&quot;)
+println(matches[index].getMetadata().toCompilableString()) 
+   //sampleEnd
+}</code></pre></div><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.derlin.grmetafetcher.GoodReadsLookup
+import ch.derlin.grmetafetcher.GoodReadsMetadata
+import ch.derlin.grmetafetcher.GoodReadsPaginatedSearchResults
+import ch.derlin.grmetafetcher.Retry
+import ch.derlin.grmetafetcher.RetryConfiguration
+fun main() { 
+   //sampleStart 
+   val p: (GoodReadsMetadata) -&gt; Unit = { println(it.toCompilableString()) }
+
+// very shot titles need authors to match
+p(GoodReadsMetadata.lookup(title = &quot;substance&quot;, author = &quot;claro&quot;))
+// Authors will match without the initials, and can be ignored in search for specific/long enough titles
+p(GoodReadsMetadata.lookup(&quot;House of Leaves&quot;, &quot;Mark Danielewski&quot;, includeAuthorInSearch = false))
+// Subtitle can be ignored in lookup
+p(GoodReadsMetadata.lookup(title = &quot;Masters of Doom&quot;))
+
+// The same can be achieved using GoodReadsLookup // accents don't matter
+p(GoodReadsLookup(title = &quot;la cle de salomon&quot;).findBestMatch().getMetadata())
+
+// If you know the URL or GoodReads ID, you can use them directly
+p(GoodReadsMetadata.fromGoodReadsId(&quot;41940388&quot;)) 
+   //sampleEnd
+}</code></pre></div><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.derlin.grmetafetcher.GoodReadsLookup
+import ch.derlin.grmetafetcher.GoodReadsMetadata
+import ch.derlin.grmetafetcher.GoodReadsPaginatedSearchResults
+import ch.derlin.grmetafetcher.Retry
+import ch.derlin.grmetafetcher.RetryConfiguration
+fun main() { 
+   //sampleStart 
+   // A Retry must be instantiated with a configuration.
+// It also supports a custom lambda to tell when to retry. By default, it retries on any 5XX server error.
+var retrier: Retry
+// Two configurations exist: EXPONENTIAL, and SIMPLE
+retrier = Retry(RetryConfiguration.EXPONENTIAL)
+// Each default configuration can be customized, e.g.
+retrier = Retry(RetryConfiguration.EXPONENTIAL.copy(maxRetries = 10))
+// Or a completely custom configuration can be provided:
+retrier = Retry(RetryConfiguration(maxRetries = 3, interval = 200, multiplier = 1f))
+
+// Once we have a Retry instance, we can use .run, like this:
+val result = retrier.run { GoodReadsMetadata.lookup(title = &quot;Project Hail Mary&quot;) }
+println(result.toCompilableString()) 
+   //sampleEnd
+}</code></pre></div></div></div>
+  <h2 class="">Packages</h2>
+  <div class="table"><a data-name="673000756%2FPackages%2F769193423" anchor-label="ch.derlin.grmetafetcher" id="673000756%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+    <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-good-reads -metadata -fetcher/ch.derlin.grmetafetcher/index.html">ch.derlin.grmetafetcher</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="673000756%2FPackages%2F769193423"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right"></div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Made with ❤ by Derlin</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
