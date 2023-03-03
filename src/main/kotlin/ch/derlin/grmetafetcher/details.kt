@@ -136,10 +136,9 @@ private fun Document.getNumberOfPages(): Int? =
 
 private fun Document.getPublicationDate(): LocalDate? =
     this.getElementsByAttributeValue("data-testid", "publicationInfo").first()
-        .required { "Could not find publicationInfo" }
-        .text()
-        .removePrefix("Published ").removePrefix("First published ")
-        .let { LocalDate.parse(it, DateTimeFormatter.ofPattern("MMMM d, yyyy")) }
+        ?.text()
+        ?.removePrefix("Published ")?.removePrefix("First published ")
+        ?.let { LocalDate.parse(it, DateTimeFormatter.ofPattern("MMMM d, yyyy")) }
 
 
 
