@@ -8,7 +8,13 @@ It is compatible with Android.
 
 ## Installation
 
-TODO: publish gradle package
+This library is published on GitHub Packages. To learn how to use GitHub Packages, see:
+* for Gradle projects: [Working with the Gradle registry](
+   https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry)
+* for Maven projects: [Working with the Apache Maven registry](
+  https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry)
+
+You can also build the library (keep reading) and then run `./gradlew publishToMavenLocal` to make it available on your machine.
 
 ### Build the library
 

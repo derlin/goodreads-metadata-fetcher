@@ -1,0 +1,70 @@
+name: Gradle Test and Build
+description: Setup gradle and test+build artifacts
+
+inputs:
+  token:
+    description: A valid GitHub Token
+    required: true
+  run_checks:
+    description: Whether to run tests
+    required: false
+    default: 'true'
+  publish:
+    description: Whether to publish to GitHub Packages
+    required: false
+    default: 'false'
+
+outputs:
+  jar_file:
+    description: Path to the jar
+    value: ${{ steps.out.outputs.jar }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Verify gradle wrapper
+      uses: gradle/wrapper-validation-action@v1
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      shell: bash
+      run: chmod +x gradlew
+
+    - name: Test with Gradle
+      if: ${{ inputs.run_checks == 'true' }}
+      shell: bash
+      run: ./gradlew check
+
+    - name: Upload Test Results On Failure
+      if: ${{ inputs.run_checks == 'true' && failure() }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path:  build/reports/tests/test
+        retention-days: 30
+
+    - name: Generate Jar
+      if: success()
+      shell: bash
+      run: ./gradlew jar
+
+    - name: Publish to GitHub Package
+      if: ${{ inputs.publish == 'true' }}
+      shell: bash
+      run: ./gradlew publish
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+
+    - name: Set output
+      shell: bash
+      id: out
+      run: |
+        jar=$(ls build/libs/goodreads-metadata-fetcher-*.jar)
+        echo "Found jar: $jar"
+        echo "jar=$jar" >> $GITHUB_OUTPUT
