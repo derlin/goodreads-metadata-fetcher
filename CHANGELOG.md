@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/derlin/goodreads-metadata-fetcher/compare/v1.0.0...v1.0.1) (2023-05-01)
+
+
+### 💬 Documentation
+
+* add on hold warning ([d61c062](https://github.com/derlin/goodreads-metadata-fetcher/commit/d61c06232b6f7cf7c6b14270e68cafbabebe8838))
+
 ## 1.0.0 (2023-03-03)
 
 
