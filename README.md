@@ -1,5 +1,9 @@
 # Module GoodReads Metadata Fetcher
 
+> **Warning**
+>
+> This repository is currently **on hold**, due to too many changes and restrictions with the new GoodReads interface and the lack of an official API.
+
 | [![Code](https://img.shields.io/badge/code-github.com-informational.svg)](https://github.com/derlin/goodreads-metadata-fetcher) | [![Documentation](https://img.shields.io/badge/documentation-derlin.io-informational.svg)](https://derlin.github.io/goodreads-metadata-fetcher/) | ![main workflow](https://github.com/derlin/goodreads-metadata-fetcher/actions/workflows/main.yaml/badge.svg) 
 | :-----------: | :---------: | :---------:
 
